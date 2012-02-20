@@ -1,7 +1,5 @@
 # Panda
 
-A total documentation build system for technical writers, and those who want to be like them.
-
 What's black and white and read all over?
 
 ![Panda reading a newspaper](http://www.galaxyclock.com/panda_reading.jpg)
@@ -50,10 +48,9 @@ If you'd like to use `panda-docs` in a script, you can! Simply define one like t
 
 ```javascript
 var panda = require("panda-docs/bin/panda-docs");
-
-panda.main(["./src/manifest.json"], function(err) {
-    
-});
+    panda.main(["./src/manifest.json", "-t", "Panda (from command line)"], function(err) {
+        if (err) console.error(err);
+    });
 ```
 
 You can find out more information on options you can use below:
