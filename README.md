@@ -92,9 +92,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 
 ## Jade templates
 
-You'll must have at least one Jade file called _layout.jade_ in your _/templates_ directory. This acts as the base template for all your generated files.
-
-Within your Jade template, you have access to the following variables:
+You have to specify at least one Jade file as a template for your pages. Within your Jade template, you have access to the following variables:
 
 * `content` is the transformed HTML content of your Markdown file
 * `metadata` is an object containing your document-based metadata values
