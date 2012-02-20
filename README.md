@@ -36,7 +36,7 @@ Make sure you have a recent build of Node.js (this was tested on v0.6.0). Instal
 
 Want to try a demonstration? Then clone this repository, and run
 
-	node bin/panda src/manifest.json 
+	node bin/panda-docs src/manifest.json 
 
 That'll turn this README into a better looking HTML file in the _/out_ directory.
 
@@ -51,8 +51,8 @@ If you'd like to use `panda-docs` in a script, you can! Simply define one like t
 ```javascript
 var panda = require("panda-docs/bin/panda-docs");
 
-panda.main(["./src/manifest.json"], function(err) {
-    
+panda.make(["./src/manifest.json"], function(err) {
+    if (err) console.error(err);
 });
 ```
 
@@ -86,7 +86,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 
  - `-h, --help`: Display the help information
  - `-t, --title`: Title of the documentation [Panda: Default Title Here]
- - `--template`: The location of your Jade templates [_./templates/default_]. You should set this.
+ - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. You should set this.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_]. You should set this.
  - `--noheader`: Hides the header
  - `--notoc`: Hides the table of contents sidebar

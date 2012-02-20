@@ -33,11 +33,6 @@ html
 			if !options.noHeader
 				header#header
 					h1 Panda: Readme
-						if metadata
-							if metadata.Author
-								a(href="#{options.baseUrl}/") #{manifest.title}, by #{metadata.Author}
-						else
-							a(href="#{options.baseUrl}/") #{manifest.title}
 
 			article#content!= content
 
