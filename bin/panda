@@ -1,0 +1,132 @@
+/*
+Panda - A total documentation build system for technical writers, and those who want to be like them.
+
+Copyright (C) 2012 Garen J. Torikian, licensed under GPL.
+*/
+
+var panda = require('..'),
+    fs = require('fs'),
+    path = require('path');
+
+var async = require('async');
+var helpers = require('../lib/helpers');
+
+var options = require('nomnom')
+  .option('manifestPath', {
+    position: 0,
+    list: false,
+    required: true,
+    help: 'The location of the manifest file',
+    metavar: 'String'
+  })
+  .option('output', {
+    position: 1,
+    abbr: 'o',
+    list: false,
+    required: true,
+    help: 'Resulting file(s) location [out]',
+    metavar: 'String',
+    default: 'out'
+  })
+  .option('help', {
+    abbr: 'h',
+    full: 'help',
+    help: 'Displays this help information',
+    default: false
+  })
+  .option('title', {
+    abbr: 't',
+    full: 'title',
+    help: 'Title of the index page [Panda: Default Title Here]',
+    metavar: 'String',
+    default: 'Panda: Default Title Here'
+  })
+  .option('template', {
+    full: 'template',
+    help: 'The location of your Jade templates',
+    metavar: 'String',
+    default: './templates/default'
+  })  
+  .option('assets', {
+    full: 'assets',
+    help: 'The location of your asset files (CSS, Javascript, e.t.c.)',
+    metavar: 'String',
+    default: './templates/default/assets'
+  })
+  .option('noHeader', {
+    full: 'noheader',
+    help: 'Hides the header',
+    flag: true
+  })
+  .option('noToc', {
+    full: 'notoc',
+    help: 'Hides the table of contents sidebar',
+    flag: true
+  })
+  .option('baseUrl', {
+    full: 'baseurl',
+    help: 'Base url of all links [./]',
+    metavar: 'String',
+    default: './'
+  })
+  .parse();
+
+destDir = options.output || './out';
+
+manifests = [];
+
+path.exists(destDir, function(exists) {
+  if (!exists) {
+    fs.mkdirSync(destDir);
+  }
+
+  async.series([
+      function(cb){
+          loadManifests(function(err, data) {
+            if (!err) {
+              cb(null);
+            }
+          });
+      },
+      function(cb) {
+        panda.makeConrefs();
+        cb(null);
+      },
+      function(cb) {
+          panda.createGenerator(options, function(err, data) {
+            if (!err) {
+              cb(null);
+            }
+          });
+      },
+      function(cb){
+        async.parallel([
+          function(cb) {
+            panda.copyAssets(options.assets, options.output + "/assets/");
+            cb (null);
+          },
+          function(cb) {
+            panda.generateFiles(function(err) {
+              if (!err) {
+                console.log("Finished!");
+                cb(null);
+              }
+            });
+          }
+        ])
+      }
+  ])
+});
+
+loadManifests = function(callback) {
+  if (fs.statSync(options.manifestPath))  {
+      console.log("Generating documentation from manifest '" + options.manifestPath + "'");
+      panda.open(options.manifestPath, function(err, data) {
+        if (!err)
+          callback(null, data);
+      });
+  }
+  else {
+    console.error("Manifest " + options.manifestPath + " doesn't appear to exist!");
+  }
+};
