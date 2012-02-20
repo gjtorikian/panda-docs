@@ -1,6 +1,6 @@
 {
   "name":        "panda-docs",
-  "version":     "0.0.1",
+  "version":     "0.1.1",
   "author":      "Garen Torikian",
   "keywords":    ["documentation", "docs", "markdown"],
   "description": "A complete documentation generation tool for Markdown files",
@@ -26,6 +26,6 @@
   "main": "./index",
 
   "bin": {
-    "panda": "./bin/panda.js"
+    "panda-docs": "./bin/panda-docs"
   }
 }

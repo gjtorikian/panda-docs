@@ -42,9 +42,19 @@ That'll turn this README into a better looking HTML file in the _/out_ directory
 
 ## Usage
 
-    panda _[options]_ [/path/to/manifest.json] _[/path/to/output/dir]_
+    panda-docs </path/to/manifest.json> _[options]_ 
 
-Of these, _[options]_ and _[/path/to/output/dir]_ are optional--but the _manifest.json_ file is mandatory. The default output directory here is _./out_.
+The _manifest.json_ file is mandatory, and all other options are optional. The default output directory here is _./out_.
+
+If you'd like to use `panda-docs` in a script, you can! Simply define one like this:
+
+```javascript
+var panda = require("panda-docs/bin/panda-docs");
+
+panda.main(["./src/manifest.json"], function(err) {
+    
+});
+```
 
 You can find out more information on options you can use below:
 
@@ -54,7 +64,6 @@ A manifest file is a mandatory JSON file that indicates where your source files 
  
 A manifest file can have the properties listed below. All the properties are optional, with the exception of `files`.
 
- - `title`: The title of the documentation (defaults to "Documentation")
  - `files`: An array defining the path to your files
  - `extension`: The extension of your Markdown files. Some people use `.md`, others `.markdown`, and still others `.text`. This is optional, and defaults to `.md`.
  - `home`: The file to display as the manual homepage (this won't show up in the TOC)
@@ -76,7 +85,7 @@ As noted above, files can either be absolute URIs, or relative to the manifest f
 There are a number of arguments you can pass to Panda that affect the entire build. They are:
 
  - `-h, --help`: Display the help information
- - `-t, --title`: Title of the page [Panda: Default Title Here]
+ - `-t, --title`: Title of the documentation [Panda: Default Title Here]
  - `--template`: The location of your Jade templates [_./templates/default_]. You should set this.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_]. You should set this.
  - `--noheader`: Hides the header
