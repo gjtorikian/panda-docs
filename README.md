@@ -32,11 +32,11 @@ A lot of the concepts are based on [maximebf's "beautiful-docs"](https://github.
 
 Make sure you have a recent build of Node.js (this was tested on v0.6.0). Install it using npm:
 
-    npm install panda -g
+    npm install panda-docs -g
 
 Want to try a demonstration? Then clone this repository, and run
 
-	panda src/manifest.json
+	node bin/panda src/manifest.json 
 
 That'll turn this README into a better looking HTML file in the _/out_ directory.
 
