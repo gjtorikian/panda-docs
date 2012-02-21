@@ -36,7 +36,9 @@ exports.generateFiles = function(callback) {
         process.exit(0);
       }
 
-      Generator.render(Manifest.options, path.basename(file, Manifest.options.extension), data, callback);
+      Generator.render(Manifest.options, file, path.basename(file, Manifest.options.extension), data);
     })
   });
+
+  callback(null);
 };

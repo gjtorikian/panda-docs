@@ -110,10 +110,11 @@ panda_docs.make = exports.make = function(args, callback) {
                 cb (null);
               },
               function(cb) {
+                console.log("Building files...");
                 panda.generateFiles(function(err) {
                   if (!err) {
-                    console.log("Finished!");
                     cb(null);
+                    console.log("Finished!");
                   }
                 });
               }

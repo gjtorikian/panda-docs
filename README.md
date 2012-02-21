@@ -1,4 +1,4 @@
-# Panda
+# Panda Docs
 
 What's black and white and read all over?
 
@@ -99,3 +99,5 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `metadata` is an object containing your document-based metadata values
 * `manifest` is an object containing the Manifest.json properties
 * `options` is an object containing your passed in properties
+* `outFile` is the name of the resulting file (without the extension)
+* `whoAmI` is the full path name of the source file
