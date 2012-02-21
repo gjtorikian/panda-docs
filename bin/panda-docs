@@ -79,62 +79,51 @@ panda_docs.make = exports.make = function(args, callback) {
 
     manifests = [];
 
-    path.exists(destDir, function(exists) {
-      if (!exists) {
-        fs.mkdirSync(destDir);
-      }
+    if (!path.existsSync(destDir)) {
+      fs.mkdirSync(destDir);
+    }
 
-      async.series([
-          function(cb){
-              loadManifests(function(err, data) {
-                if (!err) {
-                  cb(null);
-                }
+    async.series([
+        function(cb){
+          if (fs.statSync(options.manifestPath))  {
+              console.log("Generating documentation from manifest '" + options.manifestPath + "'");
+              panda.open(options.manifestPath, function(err, data) {
+                if (!err) cb(null);
               });
-          },
-          function(cb) {
-            panda.makeConrefs();
-            cb(null);
-          },
-          function(cb) {
-              panda.createGenerator(options, function(err, data) {
-                if (!err) {
-                  cb(null);
-                }
-              });
-          },
-          function(cb){
-            async.parallel([
-              function(cb) {
-                panda.copyAssets(options.assets, options.output + "/assets/");
-                cb (null);
-              },
-              function(cb) {
-                console.log("Building files...");
-                panda.generateFiles(function(err) {
-                  if (!err) {
-                    cb(null);
-                    console.log("Finished!");
-                  }
-                });
-              }
-            ])
           }
-      ])
-    });
-
-    loadManifests = function(callback) {
-      if (fs.statSync(options.manifestPath))  {
-          console.log("Generating documentation from manifest '" + options.manifestPath + "'");
-          panda.open(options.manifestPath, function(err, data) {
-            if (!err)
-              callback(null, data);
-          });
-      }
-      else {
-        console.error("Manifest " + options.manifestPath + " doesn't appear to exist!");
-      }
-    };
+          else {
+            console.error("Manifest " + options.manifestPath + " doesn't appear to exist!");
+          }
+        },
+        function(cb) {
+          panda.makeConrefs();
+          cb(null);
+        },
+        function(cb) {
+            panda.createGenerator(options, function(err, data) {
+              if (!err) {
+                cb(null);
+              }
+             });
+        },
+        function(cb){
+          async.parallel([
+            function(cb) {
+              panda.copyAssets(options.assets, options.output + "/assets/");
+              cb(null);
+            },
+            function(cb) {
+              console.log("Building files...");
+              panda.generateFiles(function(err) {
+                if (!err) {
+                  cb(null);
+                   console.log("Finished!");
+                }
+              });
+            }
+          ])
+        }
+    ]);
 }
 
 // Not from the outside? Then it's from the command line
