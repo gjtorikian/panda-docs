@@ -8,15 +8,17 @@ Copyright (C) 2012 Garen J. Torikian, licensed under GPL.
 
 var panda = require('../index.js'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    nomnom = require('nomnom');
 
 var async = require('async');
 var helpers = require('../lib/helpers');
 
 var panda_docs = exports;
+var manifestFile;
 
 panda_docs.make = exports.make = function(args, callback) {
-    var options = require('nomnom')
+    var options = nomnom
       .option('manifestPath', {
         position: 0,
         list: false,
@@ -76,6 +78,7 @@ panda_docs.make = exports.make = function(args, callback) {
       .parse(args);
 
     destDir = options.output || './out';
+    manifestFile = options.manifestPath || args[0];
 
     manifests = [];
 
@@ -84,46 +87,42 @@ panda_docs.make = exports.make = function(args, callback) {
     }
 
     async.series([
-        function(cb){
-          if (fs.statSync(options.manifestPath))  {
-              console.log("Generating documentation from manifest '" + options.manifestPath + "'");
-              panda.open(options.manifestPath, function(err, data) {
-                if (!err) cb(null);
+        function(cb) {
+          if (manifestFile !== undefined && fs.statSync(manifestFile))  {
+              console.log("Generating documentation from manifest '" + manifestFile + "'");
+              panda.open(manifestFile, function(err) {
+                cb(null);
               });
           }
           else {
-            console.error("Manifest " + options.manifestPath + " doesn't appear to exist!");
+            console.error("Manifest " + manifestFile + " doesn't appear to exist!");
+            process.exit(1);
           }
         },
         function(cb) {
-          panda.makeConrefs();
-          cb(null);
+          panda.makeConrefs(function () {
+            cb(null);
+          });
         },
         function(cb) {
-            panda.createGenerator(options, function(err, data) {
-              if (!err) {
-                cb(null);
-              }
-             });
+          panda.createGenerator(options, function() {
+            cb(null);
+          });
         },
-        function(cb){
-          async.parallel([
-            function(cb) {
-              panda.copyAssets(options.assets, options.output + "/assets/");
-              cb(null);
-            },
-            function(cb) {
-              console.log("Building files...");
-              panda.generateFiles(function(err) {
-                if (!err) {
-                  cb(null);
-                   console.log("Finished!");
-                }
-              });
-            }
-          ])
+        function(cb) {
+          panda.copyAssets(options.assets, options.output + "/assets/", function() {
+            cb(null);
+          });
+        },
+        function(cb) {
+          panda.render(function() {
+            cb(null);
+          });
         }
-    ]);
+    ], function(err, results) {
+        console.log("Finished " + manifestFile + " generation");
+        callback(err, results);
+    });
 }
 
 // Not from the outside? Then it's from the command line

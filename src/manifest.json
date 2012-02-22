@@ -1,5 +1,5 @@
 {
-    "files": ["../README.md", "../", "/Users/gjtorikian/Dropbox/Rhomes" ],
+    "files": ["../README.md", "../", ],
 	"extension": ".md",
 	"codeHighlightTheme": "solarized_dark",
 	"github": "gjtorikian/namp"
