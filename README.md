@@ -84,6 +84,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 
  - `-h, --help`: Display the help information
  - `-o`, `--output`: Resulting file(s) location [out]
+ - `--outputAssets`: Resulting file(s) location for assets [out/assets]
  - `-t, --title`: Title of the documentation [Panda: Default Title Here]
  - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. You should set this.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_]. You should set this.

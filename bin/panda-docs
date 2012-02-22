@@ -34,6 +34,14 @@ panda_docs.make = exports.make = function(args, callback) {
         metavar: 'String',
         default: 'out'
       })
+      .option('outputAssets', {
+        list: false,
+        required: false,
+        full: 'outputAssets',
+        help: 'Resulting file(s) location for assets [out/assets]',
+        metavar: 'String',
+        default: 'out/assets'
+      })
       .option('help', {
         abbr: 'h',
         full: 'help',
@@ -110,7 +118,7 @@ panda_docs.make = exports.make = function(args, callback) {
           });
         },
         function(cb) {
-          panda.copyAssets(options.assets, options.output + "/assets/", function() {
+          panda.copyAssets(options.assets, options.outputAssets, function() {
             cb(null);
           });
         },
