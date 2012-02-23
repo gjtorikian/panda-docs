@@ -102,3 +102,7 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `options` is an object containing your passed in properties
 * `outFile` is the name of the resulting file (without the extension)
 * `whoAmI` is the full path name of the source file
+* `markdown` is a function you can use to make a call out to the Markdown processor. For example, you can use it like this in your template:  
+	p
+		!= markdown("This is _going_ to be represented as `Markdown`").html
+	Don't forget that Namp returns an object, so you'll need to add that `.html` at the end.
