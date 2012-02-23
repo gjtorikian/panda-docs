@@ -15,7 +15,7 @@
   },
 
   "dependencies": {
-    "namp": "~0.1.3",
+    "namp": "~0.1.4",
     "async": "~0.1.15",
     "wrench": "~1.3.5",
     "nomnom": "~1.5.1",
