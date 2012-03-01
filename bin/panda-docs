@@ -9,7 +9,8 @@ Copyright (C) 2012 Garen J. Torikian, licensed under GPL.
 var panda = require('../index.js'),
     fs = require('fs'),
     path = require('path'),
-    nomnom = require('nomnom');
+    nomnom = require('nomnom'),
+    wrench = require('wrench');
 
 var async = require('async');
 var helpers = require('../lib/helpers');
@@ -67,12 +68,6 @@ panda_docs.make = exports.make = function(args, callback) {
         metavar: 'String',
         default: './templates/default/assets'
       })
-      .option('resources', {
-        required: false,
-        full: 'resources',
-        help: 'An array of directories to also copy into the _/out_ directory',
-        metavar: 'String'
-      })
       .option('noHeader', {
         full: 'noheader',
         help: 'Hides the header',
@@ -97,6 +92,9 @@ panda_docs.make = exports.make = function(args, callback) {
     manifests = [];
 
     if (!path.existsSync(destDir)) {
+      fs.mkdirSync(destDir);
+    } else {
+      wrench.rmdirSyncRecursive(destDir);
       fs.mkdirSync(destDir);
     }
 
@@ -129,7 +127,7 @@ panda_docs.make = exports.make = function(args, callback) {
           });
         },
         function(cb) {
-          panda.copyResources(options.resources, options.output, function() {
+          panda.copyResources(options.output, function() {
             cb(null);
           });
         },

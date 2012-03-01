@@ -7,7 +7,8 @@ var Manifest = require('./lib/manifest'),
 
 var conrefs = require('markdown_conrefs'),
     jade = require('jade'),
-    async = require('async');
+    async = require('async'),
+    wrench = require('wrench');
 
 //exports.Manifest = Manifest;
 exports.Generator = Generator;
@@ -27,15 +28,23 @@ exports.createGenerator = function(options, callback) {
 
 exports.copyAssets = function(srcDir, destDir, callback) {
   console.log("Copying assets...");
-  Generator.copyAssets(srcDir, destDir, callback);
+  wrench.mkdirSyncRecursive(destDir);
+  wrench.copyDirSyncRecursive(srcDir, destDir);
+  callback(null);
 };
 
-exports.copyResources = function(srcDir, destDir, callback) {
-  if (srcDir !== undefined) {
+exports.copyResources = function(destDir, callback) {
+  if (Manifest.options.resources !== undefined) {
       console.log("Copying resources...");
-      srcDir.forEach(function (src) {
-          Generator.copyAssets(src, destDir, callback);
+      var manifestDir = path.dirname(Manifest.uri);
+  
+      Manifest.options.resources.forEach(function (src) {
+        var item = path.resolve(manifestDir, src);
+        wrench.copyDirSyncRecursive(item, destDir + "/" + path.basename(item));
       });
+      callback(null);
+  } else {
+    callback(null);
   }
 };
 
