@@ -30,6 +30,15 @@ exports.copyAssets = function(srcDir, destDir, callback) {
   Generator.copyAssets(srcDir, destDir, callback);
 };
 
+exports.copyResources = function(srcDir, destDir, callback) {
+  if (srcDir !== undefined) {
+      console.log("Copying resources...");
+      srcDir.forEach(function (src) {
+          Generator.copyAssets(src, destDir, callback);
+      });
+  }
+};
+
 exports.render = function(callback) {
   var jadeTemplateFile = Generator.options.template;
   var jadeTemplate = fs.readFileSync(jadeTemplateFile, 'utf8');

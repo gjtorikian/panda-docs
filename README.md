@@ -86,8 +86,9 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `-o`, `--output`: Resulting file(s) location [out]
  - `--outputAssets`: Resulting file(s) location for assets [out/assets]
  - `-t, --title`: Title of the documentation [Panda: Default Title Here]
- - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. You should set this.
- - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_]. You should set this.
+ - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
+ - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].
+ - `--resources`: An array of directories to also copy into the _/out_ directory. This is usually used for accompanying or inline images.
  - `--noheader`: Hides the header
  - `--notoc`: Hides the table of contents sidebar
  - `--baseurl` : Base URL of all links
