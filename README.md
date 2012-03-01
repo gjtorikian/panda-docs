@@ -63,6 +63,7 @@ A manifest file is a mandatory JSON file that indicates where your source files 
 A manifest file can have the properties listed below. All the properties are optional, with the exception of `files`.
 
  - `files`: An array defining the path to your files
+ - `resources`: An array of directories to also copy into the _/out_ directory. This is usually used for accompanying or inline images.
  - `extension`: The extension of your Markdown files. Some people use `.md`, others `.markdown`, and still others `.text`. This is optional, and defaults to `.md`.
  - `home`: The file to display as the manual homepage (this won't show up in the TOC)
  - `category`: Category of the manual (used on the homepage) (defaults to nothing)
@@ -88,7 +89,6 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `-t, --title`: Title of the documentation [Panda: Default Title Here]
  - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].
- - `--resources`: An array of directories to also copy into the _/out_ directory. This is usually used for accompanying or inline images.
  - `--noheader`: Hides the header
  - `--notoc`: Hides the table of contents sidebar
  - `--baseurl` : Base URL of all links
