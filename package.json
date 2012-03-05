@@ -23,9 +23,6 @@
     "findit": "~0.1.2"
   },
 
-  "main": "./index",
-
-  "bin": {
-    "panda-docs": "./bin/panda-docs"
-  }
+  "bin": { "panda-docs": "bin/panda-docs" },
+  "main": "index.js"
 }
