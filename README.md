@@ -47,7 +47,7 @@ The _manifest.json_ file is mandatory, and all other options are optional. The d
 If you'd like to use `panda-docs` in a script, you can! Simply define one like this:
 
 ```javascript
-var panda = require("panda-docs/bin/panda-docs");
+var panda = require("panda-docs");
 
 panda.make(["./src/manifest.json", "-t", "Panda (from command line)"], function(err) {
     if (err) console.error(err);
