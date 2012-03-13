@@ -21,7 +21,7 @@
     "nomnom": "~1.5.1",
     "markdown_conrefs": "~1.2.3",
     "findit": "~0.1.2",
-    "functional-docs": "~0.0.1"
+    "functional-docs": "~0.0.2"
   },
 
   "bin": { "panda-docs": "bin/panda-docs" },
