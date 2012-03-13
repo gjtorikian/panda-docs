@@ -10,7 +10,8 @@ var panda = require('../index.js'),
     fs = require('fs'),
     path = require('path'),
     nomnom = require('nomnom'),
-    wrench = require('wrench');
+    wrench = require('wrench'),
+    funcDocs = require('functional-docs');
 
 var async = require('async');
 var helpers = require('../lib/helpers');
@@ -137,8 +138,10 @@ panda_docs.make = exports.make = function(args, callback) {
           });
         }
     ], function(err, results) {
-        console.log("Finished " + manifestFile + " generation");
-        callback(err, results);
+        funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html"}, function(err) {
+            console.log("Finished " + manifestFile + " generation");
+            callback(err);
+        });
     });
 }
 

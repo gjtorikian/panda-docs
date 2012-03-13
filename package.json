@@ -1,6 +1,6 @@
 {
   "name":        "panda-docs",
-  "version":     "0.2.4",
+  "version":     "0.2.5",
   "author":      "Garen Torikian",
   "keywords":    ["documentation", "docs", "markdown"],
   "description": "A complete documentation generation tool for Markdown files",
@@ -20,7 +20,8 @@
     "wrench": "~1.3.7",
     "nomnom": "~1.5.1",
     "markdown_conrefs": "~1.2.3",
-    "findit": "~0.1.2"
+    "findit": "~0.1.2",
+    "functional-docs": "~0.0.1"
   },
 
   "bin": { "panda-docs": "bin/panda-docs" },
