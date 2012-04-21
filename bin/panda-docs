@@ -87,17 +87,12 @@ panda_docs.make = exports.make = function(args, callback) {
       })
       .parse(args);
 
-    destDir = options.output || './out';
+    destDir = options.output;
     manifestFile = options.manifestPath || args[0];
 
     manifests = [];
 
-    if (!path.existsSync(destDir)) {
-      fs.mkdirSync(destDir);
-    } else {
-      wrench.rmdirSyncRecursive(destDir);
-      fs.mkdirSync(destDir);
-    }
+    wrench.mkdirSyncRecursive(destDir, 0777);
 
     async.series([
         function(cb) {
