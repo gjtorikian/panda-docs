@@ -101,7 +101,8 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `metadata` is an object containing your document-based metadata values
 * `manifest` is an object containing the Manifest.json properties
 * `options` is an object containing your passed in properties
-* `outFile` is the name of the resulting file (without the extension)
+* `fileName` is the name of the resulting file (without the extension)
+* `title` is the title of the documentation
 * `whoAmI` is the full path name of the source file
 * `markdown` is a function you can use to make a call out to the Markdown processor. For example, you can use it like this in your template:  
 
