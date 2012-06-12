@@ -29,7 +29,7 @@ exports.createGenerator = function(options, callback) {
 exports.copyAssets = function(srcDir, destDir, callback) {
   console.log("Copying assets to " + destDir + "...");
   wrench.mkdirSyncRecursive(destDir, 0777);
-  wrench.copyDirSyncRecursive(srcDir, destDir);
+  wrench.copyDirSyncRecursive(srcDir, destDir, {preserve: true});
   callback(null);
 };
 
