@@ -75,7 +75,7 @@ panda_docs.make = exports.make = function(args, callback) {
         flag: true
       })
       .option('disableTests', {
-      	abbr: 'd'
+      	abbr: 'd',
         full: 'disableTests',
         help: 'Disables the tests that are run at the end of a build. This is NOT recommended.',
         flag: true
