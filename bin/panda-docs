@@ -74,6 +74,12 @@ panda_docs.make = exports.make = function(args, callback) {
         help: 'Hides the header',
         flag: true
       })
+      .option('disableTests', {
+      	abbr: 'd'
+        full: 'disableTests',
+        help: 'Disables the tests that are run at the end of a build. This is NOT recommended.',
+        flag: true
+      })
       .option('noToc', {
         full: 'notoc',
         help: 'Hides the table of contents sidebar',
@@ -133,10 +139,14 @@ panda_docs.make = exports.make = function(args, callback) {
           });
         }
     ], function(err, results) {
-        funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html"}, function(err) {
-            console.log("Finished " + manifestFile + " generation");
-            callback(err);
-        });
+    	if (options.disableTests !== true) {
+	        funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html"}, function(err) {
+	            console.log("Finished " + manifestFile + " generation");
+	            callback(err);
+	        });
+    	}
+    	else
+    		callback(null);
     });
 }
 
