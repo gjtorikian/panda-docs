@@ -1,6 +1,6 @@
 {
   "name":        "panda-docs",
-  "version":     "0.3.0",
+  "version":     "0.3.1",
   "author":      "Garen Torikian",
   "keywords":    ["documentation", "docs", "markdown"],
   "description": "A complete documentation generation tool for Markdown files",
