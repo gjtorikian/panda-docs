@@ -1,5 +1,5 @@
 {
-    "files": ["../README.md", "../"],
+    "files": ["../README.md"],
     "resources": ["../resources"],
 	"extension": ".md",
 	"codeHighlightTheme": "solarized_dark",
