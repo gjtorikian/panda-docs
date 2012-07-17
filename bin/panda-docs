@@ -80,11 +80,6 @@ panda_docs.make = exports.make = function(args, callback) {
         help: 'Disables the tests that are run at the end of a build. This is NOT recommended.',
         flag: true
       })
-      .option('noToc', {
-        full: 'notoc',
-        help: 'Hides the table of contents sidebar',
-        flag: true
-      })
       .option('baseUrl', {
         full: 'baseurl',
         help: 'Base url of all links [./]',
