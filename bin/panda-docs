@@ -98,6 +98,7 @@ panda_docs.make = exports.make = function(args, callback) {
 
     manifests = [];
 
+    wrench.rmdirSyncRecursive(destDir, true);
     wrench.mkdirSyncRecursive(destDir, 0777);
 
     async.series([

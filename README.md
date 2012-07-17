@@ -90,7 +90,6 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].
  - `--noheader`: Hides the header
- - `--notoc`: Hides the table of contents sidebar
  - `--baseurl` : Base URL of all links
 
 ## Jade templates
@@ -110,4 +109,4 @@ You have to specify at least one Jade file as a template for your pages. Within 
 p	
     != markdown("This is _going_ to be represented as `Markdown`").html
 ```
-Don't forget that Namp returns an object, so you'll need to add that `.html` at the end.
+(namp, the Markdown tool used by Panda Docs, returns an object, so you'll need to add that `.html` at the end.)
