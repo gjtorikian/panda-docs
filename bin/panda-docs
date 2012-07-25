@@ -75,6 +75,11 @@ panda_docs.make = exports.make = function(args, callback) {
         help: 'Disables the tests that are run at the end of a build. This is NOT recommended.',
         flag: true
       })
+      .option('keepFirstHeader', {
+        full: 'keepFirstHeader',
+        help: 'If set, keeps the first header (<h1>) detected',
+        flag: true
+      })
       .option('baseUrl', {
         full: 'baseurl',
         help: 'Base url of all links [./]',

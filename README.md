@@ -71,6 +71,7 @@ As noted above, files can either be absolute URIs, or relative to the manifest f
         "files": ["README.md", "../../someFile.md"]
     }
 
+Note that every file must have ONE `h1` tag. This is used to generate the page's title information.
 
 ### Options
 
@@ -82,6 +83,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `-t, --title`: Title of the documentation [Panda: Default Title Here]
  - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].
+ - `--keepFirstHeader` : If set, keeps the first header (`<h1>`) detected
  - `--baseurl` : Base URL of all links
 
 ## Jade Templates
@@ -95,7 +97,7 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `options` is an object containing your passed in properties
 * `fileName` is the name of the resulting file (without the extension)
 * `title` is the title of the documentation
-* `whoAmI` is the full path name of the source file
+* `pageTitle` is the title of the current page
 * `mtime` indicates the last modified time of your source Markdown file
 
 The `toh` object has the following structure:
@@ -106,15 +108,16 @@ The `toh` object has the following structure:
     name: "My first header",   // the content of the header
     link: "#my-first-header",  // a direct internal url to be used
     line: 0                    // the line number in the original markdown file
+    text: "# My first header"  // the actual Markdown header text
   }, {
     rank: 2,
     name: "Subtitle",
     link: "#subtitle",
     line: 1
   }, {
-    rank: 1,
-    name: "Second Header",
-    link: "#second-header",
+    rank: 4,
+    name: "Next Header",
+    link: "#next-header",
     line: 25
   }]
 ```
