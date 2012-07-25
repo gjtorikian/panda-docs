@@ -1,5 +1,4 @@
 var fs = require('fs'),
-    util = require('util'),
     path = require('path');
 
 var Manifest = require('./lib/manifest'),
@@ -51,12 +50,19 @@ exports.copyResources = function(destDir, callback) {
 exports.render = function(callback) {
   var jadeTemplateFile = Generator.options.template;
   var jadeTemplate = fs.readFileSync(jadeTemplateFile, 'utf8');
-  var fn = jade.compile(jadeTemplate, {filename: jadeTemplateFile, pretty: false});
-
+  var jadeCompileFn = jade.compile(jadeTemplate, {filename: jadeTemplateFile, pretty: false});
+  console.log("Building files...");
+  
   async.forEach(Manifest.options.files, function(file, cb) {
-    var data = fs.readFileSync(file, 'utf8');//, function(err, data) {
-    Generator.render(Manifest.options, fn, file, path.basename(file, Manifest.options.extension), data, cb);
+      fs.stat(file, function (err, stats) {
+          if (err) return callback(err); 
+          var mtime = stats.mtime;
+          fs.readFile(file, 'utf8', function(err, data) {
+              if (err) return callback(err); 
+              Generator.render(Manifest.options, jadeCompileFn, file, path.basename(file, Manifest.options.extension), data, mtime, cb);
+          });
+      });  
   }, function(err, results) {
-    callback(err);
+      callback(err);
   });
 };

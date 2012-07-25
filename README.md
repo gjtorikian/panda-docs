@@ -11,20 +11,17 @@ A lot of the concepts are based on [maximebf's "beautiful-docs"](https://github.
 
 ## Features
 
- - Markdown syntax, the [NAMP](https://github.com/gjtorikian/namp) module. NAMP supports:
+ - Markdown syntax using [NAMP](https://github.com/gjtorikian/namp). NAMP supports:
  	* [The standard Gruber syntax](http://daringfireball.net/projects/markdown/)
 	* [The GitHub Flavored Markdown syntax](http://github.github.com/github-flavored-markdown/) (including language-specific codeblock fences)
-	* [The PHP Markdown Extra syntax](http://michelf.com/projects/php-markdown/extra/)
-	* [Maruku meta-data support](http://maruku.rubyforge.org/maruku.html#meta)
-	* Support for [content references (conrefs) in Markdown](https://github.com/gjtorikian/markdown_conrefs)
-	* _Inline_ metadata support (something Maruku does not do)
 	* Strikethroughs
 	* Conversion of `Note: `, `Tip: `, and `Warning: ` blocks into [Twitter Bootstrap alert blocks](http://twitter.github.com/bootstrap/components.html#alerts)
-	* Build-time highlighting of `<pre>` code blocks
 	For more information, check out the NAMP documentation.
+ - Support for [content references (conrefs) in Markdown](https://github.com/gjtorikian/markdown_conrefs)
  - Pass in individual files or entire directories
  - Embeddable metadata
  - Easy template customization (via Jade)
+ - Automatic linking for all heading tags (`h1`, `h2`, _e.t.c._)
 
 ## Installation
 
@@ -66,11 +63,7 @@ A manifest file can have the properties listed below. All the properties are opt
  - `resources`: An array of directories to also copy into the _/out_ directory. This is usually used for accompanying or inline images.
  - `extension`: The extension of your Markdown files. Some people use `.md`, others `.markdown`, and still others `.text`. This is optional, and defaults to `.md`.
  - `home`: The file to display as the manual homepage (this won't show up in the TOC)
- - `category`: Category of the manual (used on the homepage) (defaults to nothing)
- - `css`: An absolute URL to a CSS stylesheet that will be included in every page
  - `codeHighlightTheme`: The name of [the highlightjs theme to use](http://softwaremaniacs.org/soft/highlight/en/) for code highlighting (defaults to 'github')
- - `embedly`: Activate embedly by passing in your API key. Links to embedly must be placed alone in a paragraph.
- - `github`: The `username/repo` on GitHub that's used to link through with the "Fork me on Github" banner. If this is omitted, then there's no banner.]
 
 As noted above, files can either be absolute URIs, or relative to the manifest file. For example: 
 
@@ -89,24 +82,39 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `-t, --title`: Title of the documentation [Panda: Default Title Here]
  - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
  - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].
- - `--noheader`: Hides the header
  - `--baseurl` : Base URL of all links
 
-## Jade templates
+## Jade Templates
 
 You have to specify at least one Jade file as a template for your pages. Within your Jade template, you have access to the following variables:
 
 * `content` is the transformed HTML content of your Markdown file
 * `metadata` is an object containing your document-based metadata values
 * `manifest` is an object containing the Manifest.json properties
+* `toh` is an object containing the headings for each file (`h1`, `h2`, _e.t.c._). See below for more information. By default, all headings are anchors that can be linked to
 * `options` is an object containing your passed in properties
 * `fileName` is the name of the resulting file (without the extension)
 * `title` is the title of the documentation
 * `whoAmI` is the full path name of the source file
-* `markdown` is a function you can use to make a call out to the Markdown processor. For example, you can use it like this in your template:  
+* `mtime` indicates the last modified time of your source Markdown file
 
-```	
-p	
-    != markdown("This is _going_ to be represented as `Markdown`").html
+The `toh` object has the following structure:
+
 ```
-(namp, the Markdown tool used by Panda Docs, returns an object, so you'll need to add that `.html` at the end.)
+[{
+    rank: 1,                   // the hierarchy in the toc (based on h1, h2, ..., h6)
+    name: "My first header",   // the content of the header
+    link: "#my-first-header",  // a direct internal url to be used
+    line: 0                    // the line number in the original markdown file
+  }, {
+    rank: 2,
+    name: "Subtitle",
+    link: "#subtitle",
+    line: 1
+  }, {
+    rank: 1,
+    name: "Second Header",
+    link: "#second-header",
+    line: 25
+  }]
+```

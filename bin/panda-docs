@@ -69,11 +69,6 @@ panda_docs.make = exports.make = function(args, callback) {
         metavar: 'String',
         default: './templates/default/assets'
       })
-      .option('noHeader', {
-        full: 'noheader',
-        help: 'Hides the header',
-        flag: true
-      })
       .option('disableTests', {
       	abbr: 'd',
         full: 'disableTests',
@@ -130,19 +125,23 @@ panda_docs.make = exports.make = function(args, callback) {
           });
         },
         function(cb) {
-          panda.render(function() {
-            cb(null);
+          panda.render(function(err) {
+            cb(err);
           });
         }
     ], function(err, results) {
+        if (err) return callback(err);
+
     	if (options.disableTests !== true) {
 	        funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html"}, function(err) {
+                if (err) return callback(err);
+
 	            console.log("Finished " + manifestFile + " generation");
-	            callback(err);
+	            return callback(null);
 	        });
     	}
     	else
-    		callback(null);
+    		return callback(null);
     });
 }
 
