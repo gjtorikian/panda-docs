@@ -93,7 +93,7 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `content` is the transformed HTML content of your Markdown file
 * `metadata` is an object containing your document-based metadata values
 * `manifest` is an object containing the Manifest.json properties
-* `toh` is an object containing the headings for each file (`h1`, `h2`, _e.t.c._). See below for more information. By default, all headings are anchors that can be linked to
+* `toh` is an object containing the headings for each file (`h1`, `h2`, _e.t.c._). See below for more information on this object.
 * `options` is an object containing your passed in properties
 * `fileName` is the name of the resulting file (without the extension)
 * `title` is the title of the documentation
@@ -102,7 +102,7 @@ You have to specify at least one Jade file as a template for your pages. Within 
 
 The `toh` object has the following structure:
 
-```
+```json
 [{
     rank: 1,                   // the hierarchy in the toc (based on h1, h2, ..., h6)
     name: "My first header",   // the content of the header
@@ -121,3 +121,15 @@ The `toh` object has the following structure:
     line: 25
   }]
 ```
+
+Each non-`h1` header is also automatically an anchor. The HTML for an H2 called "Testing Your Highlighter" looks like this:
+
+```html
+<h2>
+    <a name="testing-your-highlighter" class="heading_anchor" href="#testing-your-highlighter"></a>
+    <i class="headerLinkIcon"></i>
+    Testing Your Highlighter
+</h2>
+```
+
+You can add an icon for `headerLinkIcon` to make it more discoverable, _i.e._ by using something from [Font Awesome](http://fortawesome.github.com/Font-Awesome/).
