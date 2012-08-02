@@ -94,11 +94,15 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `metadata` is an object containing your document-based metadata values
 * `manifest` is an object containing the Manifest.json properties
 * `toh` is an object containing the headings for each file (`h1`, `h2`, _e.t.c._). See below for more information on this object.
+* `headingTable` is a function you can use to generate a list of your page's table of contents. See below for more information on using this
 * `options` is an object containing your passed in properties
 * `fileName` is the name of the resulting file (without the extension)
 * `title` is the title of the documentation
 * `pageTitle` is the title of the current page
 * `mtime` indicates the last modified time of your source Markdown file
+
+
+#### Working with a Table of Contents for a Page
 
 The `toh` object has the following structure:
 
@@ -113,16 +117,21 @@ The `toh` object has the following structure:
     rank: 2,
     name: "Subtitle",
     link: "#subtitle",
-    line: 1
+    line: 4
   }, {
     rank: 4,
-    name: "Next Header",
-    link: "#next-header",
+    name: "Minor Header",
+    link: "#minor-header",
     line: 25
-  }]
+  },{
+    rank: 2,
+    name: "Another Subtitle!",
+    link: "#another-subtitle",
+    line: 58
+}]
 ```
 
-Each non-`h1` header is also automatically an anchor. The HTML for an H2 called "Testing Your Highlighter" looks like this:
+Each non-`h1` header is also automatically an anchor. The resulting HTML for an H2 called "Testing Your Highlighter" looks like this:
 
 ```html
 <h2>
@@ -133,3 +142,56 @@ Each non-`h1` header is also automatically an anchor. The HTML for an H2 called 
 ```
 
 You can add an icon for `headerLinkIcon` to make it more discoverable, _i.e._ by using something from [Font Awesome](http://fortawesome.github.com/Font-Awesome/).
+
+Finally, you also have access to a function, called `headingTable`, that automatically generates a table of contents for each page's heading. The resulting HTML produced by this function might look like this:
+
+```html
+<ol class="tocContainer level_1">
+    <li class="tocItem level_2">
+        <a href="#defining-a-mode">Defining a Mode</a>
+    </li>
+    <li class="tocItem level_2">
+        <a href="#defining-syntax-highlighting-rules">Defining Syntax Highlighting Rules</a>
+        <ol class="tocContainer level_2">
+            <li class="tocItem level_3">
+                <a href="#defining-tokens">Defining Tokens</a>
+            </li>
+            <li class="tocItem level_3">
+                <a href="#defining-regular-expressions">Defining Regular Expressions</a>
+                <ol class="tocContainer level_3">
+                    <li class="tocItem level_4">
+                        <a href="#groupings">Groupings</a>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li class="tocItem level_2">
+        <a href="#defining-states">Defining States</a>
+    </li>
+    <li class="tocItem level_2">
+        <a href="#code-folding">Code Folding</a>
+    </li>
+</ol>
+```
+
+Basically, every sub-heading is nested underneath a parent heading of larger size. In the example above, we have a page with an `<h2>` tag called "Defining a Mode", followed by another `<h2>`, "Defining Syntax Highlighting Rules", which itself is followed by two `<h3>` tags, "Defining Tokens" and "Defining Regular Expressions." The last `<h3>` has an `<h4>` called "Groupings." We then go back to some regular old `<h2>` tags.
+
+This generated table always ignores the `<h1>` tag. You can customize it by by embedding the following signature into your Jade template:
+
+```javascript
+headingTable(toh, maxLevel, classes)
+```
+
+where
+
+* `toh` is your page's `toh` object
+* `maxLevel` is optional, and refers to the maximum heading number you want to display; this defaults to 4. Basically, any `h` tag greater than this number is ignored
+* `classes` is optional, and it's an array of two strings. The first is a class that applies to all the `<ol>` tags; the second applies to the `<li>` tags. Every `<ol>` and `<li>` automatically gets a  `level_<POSITION>` class that is set to the current item's position
+
+
+Thus, to generate the above, your Jade template might go:
+
+```jade
+!= headingTable(toh, 5, ['tocContainer', 'tocItem'])
+```
