@@ -1,0 +1,143 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'publish', '.' ]
+2 info using npm@1.1.32
+3 info using node@v0.6.18
+4 verbose config file /Users/gjtorikian/.npmrc
+5 verbose config file /usr/local/etc/npmrc
+6 verbose config file /usr/local/lib/node_modules/npm/npmrc
+7 verbose publish [ '.' ]
+8 verbose read json /Users/gjtorikian/Developer/panda-docs/package.json
+9 verbose cache add [ '.', null ]
+10 silly cache add name=undefined spec="." args=[".",null]
+11 verbose parsed url { pathname: '.', path: '.', href: '.' }
+12 verbose read json package.json
+13 verbose tar pack [ '/var/folders/5p/7q_0lmvs3s96_xpt4g0lj1l00000gq/T/npm-1344295975767/1344295975767-0.8850713497959077/tmp.tgz',
+13 verbose tar pack   '.' ]
+14 verbose tarball /var/folders/5p/7q_0lmvs3s96_xpt4g0lj1l00000gq/T/npm-1344295975767/1344295975767-0.8850713497959077/tmp.tgz
+15 verbose folder .
+16 info prepublish panda-docs@0.3.9
+17 verbose tar unpack /var/folders/5p/7q_0lmvs3s96_xpt4g0lj1l00000gq/T/npm-1344295975767/1344295975767-0.8850713497959077/tmp.tgz
+18 silly gunzTarPerm modes [ '755', '644' ]
+19 silly gunzTarPerm extractEntry package.json
+20 silly gunzTarPerm extractEntry .npmignore
+21 silly gunzTarPerm extractEntry README.md
+22 silly gunzTarPerm modified mode [ 'README.md', 416, 420 ]
+23 silly gunzTarPerm extractEntry LICENSE
+24 silly gunzTarPerm extractEntry build.js
+25 silly gunzTarPerm extractEntry index.js
+26 silly gunzTarPerm modified mode [ 'index.js', 416, 420 ]
+27 silly gunzTarPerm extractEntry lib/generator.js
+28 silly gunzTarPerm modified mode [ 'lib/generator.js', 416, 420 ]
+29 silly gunzTarPerm extractEntry lib/helpers.js
+30 silly gunzTarPerm extractEntry lib/manifest.js
+31 silly gunzTarPerm extractEntry lib/toh.js
+32 silly gunzTarPerm modified mode [ 'lib/toh.js', 416, 420 ]
+33 silly gunzTarPerm extractEntry bin/panda-docs
+34 silly gunzTarPerm extractEntry .c9revisions/.npmignore
+35 silly gunzTarPerm extractEntry .c9revisions/index.js
+36 silly gunzTarPerm extractEntry .c9revisions/.DS_Store.c9save
+37 silly gunzTarPerm extractEntry .c9revisions/.npmignore.c9save
+38 silly gunzTarPerm extractEntry .c9revisions/bin/panda-docs.c9save
+39 silly gunzTarPerm extractEntry .c9revisions/build.js.c9save
+40 silly gunzTarPerm extractEntry .c9revisions/.gitignore.c9save
+41 silly gunzTarPerm extractEntry .c9revisions/index.js.c9save
+42 silly gunzTarPerm extractEntry .c9revisions/lib/generator.js.c9save
+43 silly gunzTarPerm modified mode [ '.c9revisions/lib/generator.js.c9save', 416, 420 ]
+44 silly gunzTarPerm extractEntry .c9revisions/lib/helpers.js.c9save
+45 silly gunzTarPerm extractEntry .c9revisions/lib/manifest.js.c9save
+46 silly gunzTarPerm modified mode [ '.c9revisions/lib/manifest.js.c9save', 416, 420 ]
+47 silly gunzTarPerm extractEntry .c9revisions/package.json.c9save
+48 silly gunzTarPerm modified mode [ '.c9revisions/package.json.c9save', 416, 420 ]
+49 silly gunzTarPerm extractEntry .c9revisions/README.md.c9save
+50 silly gunzTarPerm modified mode [ '.c9revisions/README.md.c9save', 416, 420 ]
+51 silly gunzTarPerm extractEntry .c9revisions/templates/default/layout.jade.c9save
+52 silly gunzTarPerm extractEntry .settings
+53 silly gunzTarPerm modified mode [ '.settings', 416, 420 ]
+54 verbose read json /var/folders/5p/7q_0lmvs3s96_xpt4g0lj1l00000gq/T/npm-1344295975767/1344295975767-0.8850713497959077/package/package.json
+55 verbose from cache /var/folders/5p/7q_0lmvs3s96_xpt4g0lj1l00000gq/T/npm-1344295975767/1344295975767-0.8850713497959077/package/package.json
+56 verbose tar pack [ '/Users/gjtorikian/.npm/panda-docs/0.3.9/package.tgz',
+56 verbose tar pack   '/var/folders/5p/7q_0lmvs3s96_xpt4g0lj1l00000gq/T/npm-1344295975767/1344295975767-0.8850713497959077/package' ]
+57 verbose tarball /Users/gjtorikian/.npm/panda-docs/0.3.9/package.tgz
+58 verbose folder /var/folders/5p/7q_0lmvs3s96_xpt4g0lj1l00000gq/T/npm-1344295975767/1344295975767-0.8850713497959077/package
+59 verbose tar unpack /Users/gjtorikian/.npm/panda-docs/0.3.9/package.tgz
+60 silly gunzTarPerm modes [ '755', '644' ]
+61 silly gunzTarPerm extractEntry package.json
+62 silly gunzTarPerm extractEntry .npmignore
+63 silly gunzTarPerm extractEntry README.md
+64 silly gunzTarPerm extractEntry LICENSE
+65 silly gunzTarPerm extractEntry build.js
+66 silly gunzTarPerm extractEntry index.js
+67 silly gunzTarPerm extractEntry .c9revisions/.npmignore
+68 silly gunzTarPerm extractEntry .c9revisions/index.js
+69 silly gunzTarPerm extractEntry .c9revisions/.DS_Store.c9save
+70 silly gunzTarPerm extractEntry .c9revisions/.npmignore.c9save
+71 silly gunzTarPerm extractEntry .c9revisions/bin/panda-docs.c9save
+72 silly gunzTarPerm extractEntry .c9revisions/build.js.c9save
+73 silly gunzTarPerm extractEntry .c9revisions/.gitignore.c9save
+74 silly gunzTarPerm extractEntry .c9revisions/index.js.c9save
+75 silly gunzTarPerm extractEntry .c9revisions/lib/generator.js.c9save
+76 silly gunzTarPerm extractEntry .c9revisions/lib/helpers.js.c9save
+77 silly gunzTarPerm extractEntry .c9revisions/lib/manifest.js.c9save
+78 silly gunzTarPerm extractEntry .c9revisions/package.json.c9save
+79 silly gunzTarPerm extractEntry .c9revisions/README.md.c9save
+80 silly gunzTarPerm extractEntry .c9revisions/templates/default/layout.jade.c9save
+81 silly gunzTarPerm extractEntry .settings
+82 silly gunzTarPerm extractEntry bin/panda-docs
+83 silly gunzTarPerm extractEntry lib/generator.js
+84 silly gunzTarPerm extractEntry lib/helpers.js
+85 silly gunzTarPerm extractEntry lib/manifest.js
+86 silly gunzTarPerm extractEntry lib/toh.js
+87 verbose read json /Users/gjtorikian/.npm/panda-docs/0.3.9/package/package.json
+88 silly shasum updated bytes 23105
+89 info shasum 231d9fb54ab13ebd5cadd01221b931c3ef095496
+89 info shasum /Users/gjtorikian/.npm/panda-docs/0.3.9/package.tgz
+90 verbose from cache /Users/gjtorikian/.npm/panda-docs/0.3.9/package/package.json
+91 verbose chmod /Users/gjtorikian/.npm/panda-docs/0.3.9/package.tgz 644
+92 verbose chown /Users/gjtorikian/.npm/panda-docs/0.3.9/package.tgz [ 503, 20 ]
+93 silly publish { name: 'panda-docs',
+93 silly publish   version: '0.3.9',
+93 silly publish   author: { name: 'Garen Torikian' },
+93 silly publish   keywords: [ 'documentation', 'docs', 'markdown' ],
+93 silly publish   description: 'A complete documentation generation tool for Markdown files',
+93 silly publish   licenses:
+93 silly publish    [ { type: 'GPL',
+93 silly publish        url: 'http://github.com/gjtorikian/panda-docs/raw/master/LICENSE' } ],
+93 silly publish   repository:
+93 silly publish    { type: 'git',
+93 silly publish      url: 'http://github.com/gjtorikian/panda-docs.git' },
+93 silly publish   dependencies:
+93 silly publish    { namp: '>=0.1.8',
+93 silly publish      async: '>=0.1.18',
+93 silly publish      wrench: '>=1.3.8',
+93 silly publish      jade: '>=0.26.1',
+93 silly publish      nomnom: '>=1.5.1',
+93 silly publish      markdown_conrefs: '>=1.2.3',
+93 silly publish      findit: '>=0.1.2',
+93 silly publish      'functional-docs': '>=0.0.3' },
+93 silly publish   bin: { 'panda-docs': 'bin/panda-docs' },
+93 silly publish   main: 'bin/panda-docs',
+93 silly publish   readme: '# Panda Docs\n\nWhat\'s black and white and read all over?\n\n![Panda reading a newspaper](http://www.galaxyclock.com/panda_reading.jpg)\n\nThis is a documentation build system that takes Markdown files as sources, and produces HTML files. It runs on [Node.js](http://nodejs.org/), and uses [Jade](http://jade-lang.com/) as its templating engine.\n\nA lot of the concepts are based on [maximebf\'s "beautiful-docs"](https://github.com/maximebf/beautiful-docs), but there are so many differences--the most notable being that this is in Javascript, not Coffeescript--that I decided to turn it into a complete fork.\n\n\n## Features\n\n - Markdown syntax using [NAMP](https://github.com/gjtorikian/namp). NAMP supports:\n \t* [The standard Gruber syntax](http://daringfireball.net/projects/markdown/)\n\t* [The GitHub Flavored Markdown syntax](http://github.github.com/github-flavored-markdown/) (including language-specific codeblock fences)\n\t* Strikethroughs\n\t* Conversion of `Note: `, `Tip: `, and `Warning: ` blocks into [Twitter Bootstrap alert blocks](http://twitter.github.com/bootstrap/components.html#alerts)\n\tFor more information, check out the NAMP documentation.\n - Support for [content references (conrefs) in Markdown](https://github.com/gjtorikian/markdown_conrefs)\n - Pass in individual files or entire directories\n - Embeddable metadata\n - Easy template customization (via Jade)\n - Automatic linking for all heading tags (`h1`, `h2`, _e.t.c._)\n\n## Installation\n\nMake sure you have a recent build of Node.js (this was tested on v0.6.0). Install it using npm:\n\n    npm install panda-docs -g\n\nWant to try a demonstration? Then clone this repository, and run\n\n\tnode bin/panda-docs src/manifest.json \n\nThat\'ll turn this README into a better looking HTML file in the _/out_ directory.\n\n## Usage\n\n    panda-docs </path/to/manifest.json> _[options]_ \n\nThe _manifest.json_ file is mandatory, and all other options are optional. The default output directory here is _./out_.\n\nIf you\'d like to use `panda-docs` in a script, you can! Simply define one like this:\n\n```javascript\nvar panda = require("panda-docs");\n\npanda.make(["./src/manifest.json", "-t", "Panda (from command line)"], function(err) {\n    if (err) console.error(err);\n});\n```\n\nYou can find out more information on options you can use below:\n\n### Manifest Files\n\nA manifest file is a mandatory JSON file that indicates where your source files reside, as well as specifing customization options for your documentation pages.\n \nA manifest file can have the properties listed below. All the properties are optional, with the exception of `files`.\n\n - `files`: An array defining the path to your files\n - `resources`: An array of directories to also copy into the _/out_ directory. This is usually used for accompanying or inline images.\n - `extension`: The extension of your Markdown files. Some people use `.md`, others `.markdown`, and still others `.text`. This is optional, and defaults to `.md`.\n - `home`: The file to display as the manual homepage (this won\'t show up in the TOC)\n - `codeHighlightTheme`: The name of [the highlightjs theme to use](http://softwaremaniacs.org/soft/highlight/en/) for code highlighting (defaults to \'github\')\n\nAs noted above, files can either be absolute URIs, or relative to the manifest file. For example: \n\n    {\n        "files": ["README.md", "../../someFile.md"]\n    }\n\nNote that every file must have ONE `h1` tag. This is used to generate the page\'s title information.\n\n### Options\n\nThere are a number of arguments you can pass to Panda that affect the entire build. They are:\n\n - `-h, --help`: Display the help information\n - `-o`, `--output`: Resulting file(s) location [out]\n - `--outputAssets`: Resulting file(s) location for assets [out/assets]\n - `-t, --title`: Title of the documentation [Panda: Default Title Here]\n - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.\n - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].\n - `--keepFirstHeader` : If set, keeps the first header (`<h1>`) detected\n - `--baseurl` : Base URL of all links\n\n## Jade Templates\n\nYou have to specify at least one Jade file as a template for your pages. Within your Jade template, you have access to the following variables:\n\n* `content` is the transformed HTML content of your Markdown file\n* `metadata` is an object containing your document-based metadata values\n* `manifest` is an object containing the Manifest.json properties\n* `toh` is an object containing the headings for each file (`h1`, `h2`, _e.t.c._). See below for more information on this object.\n* `headingTable` is a function you can use to generate a list of your page\'s table of contents. See below for more information on using this\n* `options` is an object containing your passed in properties\n* `fileName` is the name of the resulting file (without the extension)\n* `title` is the title of the documentation\n* `pageTitle` is the title of the current page\n* `mtime` indicates the last modified time of your source Markdown file\n\n\n#### Working with a Table of Contents for a Page\n\nThe `toh` object has the following structure:\n\n```json\n[{\n    rank: 1,                   // the hierarchy in the toc (based on h1, h2, ..., h6)\n    name: "My first header",   // the content of the header\n    link: "#my-first-header",  // a direct internal url to be used\n    line: 0                    // the line number in the original markdown file\n    text: "# My first header"  // the actual Markdown header text\n  }, {\n    rank: 2,\n    name: "Subtitle",\n    link: "#subtitle",\n    line: 4\n  }, {\n    rank: 4,\n    name: "Minor Header",\n    link: "#minor-header",\n    line: 25\n  },{\n    rank: 2,\n    name: "Another Subtitle!",\n    link: "#another-subtitle",\n    line: 58\n}]\n```\n\nEach non-`h1` header is also automatically an anchor. The resulting HTML for an H2 called "Testing Your Highlighter" looks like this:\n\n```html\n<h2>\n    <a name="testing-your-highlighter" class="heading_anchor" href="#testing-your-highlighter"></a>\n    <i class="headerLinkIcon"></i>\n    Testing Your Highlighter\n</h2>\n```\n\nYou can add an icon for `headerLinkIcon` to make it more discoverable, _i.e._ by using something from [Font Awesome](http://fortawesome.github.com/Font-Awesome/).\n\nFinally, you also have access to a function, called `headingTable`, that automatically generates a table of contents for each page\'s heading. The resulting HTML produced by this function might look like this:\n\n```html\n<ol class="tocContainer level_1">\n    <li class="tocItem level_2">\n        <a href="#defining-a-mode">Defining a Mode</a>\n    </li>\n    <li class="tocItem level_2">\n        <a href="#defining-syntax-highlighting-rules">Defining Syntax Highlighting Rules</a>\n        <ol class="tocContainer level_2">\n            <li class="tocItem level_3">\n                <a href="#defining-tokens">Defining Tokens</a>\n            </li>\n            <li class="tocItem level_3">\n                <a href="#defining-regular-expressions">Defining Regular Expressions</a>\n                <ol class="tocContainer level_3">\n                    <li class="tocItem level_4">\n                        <a href="#groupings">Groupings</a>\n                    </li>\n                </ol>\n            </li>\n        </ol>\n    </li>\n    <li class="tocItem level_2">\n        <a href="#defining-states">Defining States</a>\n    </li>\n    <li class="tocItem level_2">\n        <a href="#code-folding">Code Folding</a>\n    </li>\n</ol>\n```\n\nBasically, every sub-heading is nested underneath a parent heading of larger size. In the example above, we have a page with an `<h2>` tag called "Defining a Mode", followed by another `<h2>`, "Defining Syntax Highlighting Rules", which itself is followed by two `<h3>` tags, "Defining Tokens" and "Defining Regular Expressions." The last `<h3>` has an `<h4>` called "Groupings." We then go back to some regular old `<h2>` tags.\n\nThis generated table always ignores the `<h1>` tag. You can customize it by by embedding the following signature into your Jade template:\n\n```javascript\nheadingTable(toh, maxLevel, classes)\n```\n\nwhere\n\n* `toh` is your page\'s `toh` object\n* `maxLevel` is optional, and refers to the maximum heading number you want to display; this defaults to 4. Basically, any `h` tag greater than this number is ignored\n* `classes` is optional, and it\'s an array of two strings. The first is a class that applies to all the `<ol>` tags; the second applies to the `<li>` tags. Every `<ol>` and `<li>` automatically gets a  `level_<POSITION>` class that is set to the current item\'s position\n\n\nThus, to generate the above, your Jade template might go:\n\n```jade\n!= headingTable(toh, 5, [\'tocContainer\', \'tocItem\'])\n```',
+93 silly publish   _id: 'panda-docs@0.3.9',
+93 silly publish   dist: { shasum: '231d9fb54ab13ebd5cadd01221b931c3ef095496' } }
+94 verbose url raw panda-docs
+95 verbose url resolving [ 'https://registry.npmjs.org/', './panda-docs' ]
+96 verbose url resolved https://registry.npmjs.org/panda-docs
+97 http PUT https://registry.npmjs.org/panda-docs
+98 http 409 https://registry.npmjs.org/panda-docs
+99 verbose url raw panda-docs
+100 verbose url resolving [ 'https://registry.npmjs.org/', './panda-docs' ]
+101 verbose url resolved https://registry.npmjs.org/panda-docs
+102 http GET https://registry.npmjs.org/panda-docs
+103 http 200 https://registry.npmjs.org/panda-docs
+104 error publish fail Cannot publish over existing version.
+104 error publish fail Bump the 'version' field, set the --force flag, or
+104 error publish fail     npm unpublish 'panda-docs@0.3.9'
+104 error publish fail and try again
+105 error System Darwin 12.0.0
+106 error command "node" "/usr/local/bin/npm" "publish" "."
+107 error cwd /Users/gjtorikian/Developer/panda-docs
+108 error node -v v0.6.18
+109 error npm -v 1.1.32
+110 error code EPUBLISHCONFLICT
+111 error message publish fail
+112 verbose exit [ 1, true ]
