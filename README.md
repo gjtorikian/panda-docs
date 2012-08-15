@@ -134,8 +134,8 @@ The `toh` object has the following structure:
 Each non-`h1` header is also automatically an anchor. The resulting HTML for an H2 called "Testing Your Highlighter" looks like this:
 
 ```html
-<h2>
-    <a name="testing-your-highlighter" class="heading_anchor" href="#testing-your-highlighter"></a>
+<h2 id="testing-your-highlighter">
+    <a class="heading_anchor" href="#testing-your-highlighter"></a>
     <i class="headerLinkIcon"></i>
     Testing Your Highlighter
 </h2>

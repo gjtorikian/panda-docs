@@ -3,3 +3,4 @@ out/
 node_modules/
 .c9revisions/
 .settings
+npm-debug.log
