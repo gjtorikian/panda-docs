@@ -70,7 +70,7 @@ panda_docs.make = exports.make = function(args, callback) {
         default: './templates/default/assets'
       })
       .option('disableTests', {
-      	abbr: 'd',
+        abbr: 'd',
         full: 'disableTests',
         help: 'Disables the tests that are run at the end of a build. This is NOT recommended.',
         flag: true
@@ -101,6 +101,9 @@ panda_docs.make = exports.make = function(args, callback) {
 
     wrench.rmdirSyncRecursive(destDir, true);
     wrench.mkdirSyncRecursive(destDir, 0777);
+
+    cbReturn = {};
+    cbReturn.files = [ ];
 
     async.series([
         function(cb) {
@@ -136,23 +139,23 @@ panda_docs.make = exports.make = function(args, callback) {
           });
         },
         function(cb) {
-          panda.render(function(err) {
+          panda.render(cbReturn, function(err) {
             cb(err);
           });
         }
     ], function(err, results) {
         if (err) return callback(err);
 
-    	if (options.disableTests !== true) {
-	        funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html"}, function(err) {
+      if (options.disableTests !== true) {
+          funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html"}, function(err) {
                 if (err) return callback(err);
 
-	            console.log("Finished " + manifestFile + " generation");
-	            return callback(null);
-	        });
-    	}
-    	else
-    		return callback(null);
+              console.log("Finished " + manifestFile + " generation");
+              return callback(null, cbReturn);
+          });
+      }
+      else
+        return callback(null, cbReturn);
     });
 }
 

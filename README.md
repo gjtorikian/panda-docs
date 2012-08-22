@@ -46,7 +46,7 @@ If you'd like to use `panda-docs` in a script, you can! Simply define one like t
 ```javascript
 var panda = require("panda-docs");
 
-panda.make(["./src/manifest.json", "-t", "Panda (from command line)"], function(err) {
+panda.make(["./src/manifest.json", "-t", "Panda (from command line)"], function(err, cbReturn) {
     if (err) console.error(err);
 });
 ```
@@ -87,6 +87,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `--baseurl`: Base URL of all links
 - `-r, --no-release`: If set, indicates that you're doing a development build. You can trigger different behavior in your Jade templates this way
 
+
 ## Jade Templates
 
 You have to specify at least one Jade file as a template for your pages. Within your Jade template, you have access to the following variables:
@@ -100,8 +101,15 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `fileName` is the name of the resulting file (without the extension)
 * `title` is the title of the documentation
 * `pageTitle` is the title of the current page
-* `mtime` indicates the last modified time of your source Markdown file
+* `mtime` indicates the last modified time of your source file
 
+## Callback Results
+
+The callback for `panda` returns a JSON with one key: `files`, which is a listing of all the files generated. `files` is an array of objects, containing the following keys:
+
+* `filename`: the filename (minus the suffix)
+* `mtime`: the last modified time of your source file
+* `pageTitle`: the title of the page (text only, meaning minus any `#` or `<h1>` indicators)
 
 #### Working with a Table of Contents for a Page
 
