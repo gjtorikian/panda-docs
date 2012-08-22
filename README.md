@@ -82,7 +82,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
  - `--outputAssets`: Resulting file(s) location for assets [out/assets]
  - `-t, --title`: Title of the documentation [Panda: Default Title Here]
  - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
- - `--assets`: The location of your assets (CSS, Javascript) [_./templates/default/assets_].
+ - `--assets`: The location of your assets (CSS, Javascript)
  - `--keepFirstHeader` : If set, keeps the first header (`<h1>`) detected
  - `--baseurl`: Base URL of all links
 - `-r, --no-release`: If set, indicates that you're doing a development build. You can trigger different behavior in your Jade templates this way
