@@ -111,6 +111,8 @@ The callback for `panda` returns a JSON with one key: `files`, which is a listin
 * `mtime`: the last modified time of your source file
 * `pageTitle`: the title of the page (text only, meaning minus any `#` or `<h1>` indicators)
 
+You could use this information to provide a list of Recently Updated content--which is exactly what the [Cloud9 IDE User Documentation](https://github.com/c9/cloud9ide-documentation) does.
+
 #### Working with a Table of Contents for a Page
 
 The `toh` object has the following structure:
