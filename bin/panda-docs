@@ -24,6 +24,12 @@ var manifestFile;
 panda_docs.make = exports.make = function(manifestFile, args, callback) {
     var options = cli.parseArgs();
 
+    for (var key in args) {
+      if (args.hasOwnProperty(key)) {
+        options[key] = args[key];
+      }
+    }
+
     destDir = options.output;
 
     manifests = [];
@@ -58,6 +64,7 @@ panda_docs.make = exports.make = function(manifestFile, args, callback) {
           });
         },
         function(cb) {
+          console.log(options)
           panda.copyAssets(options.assets, options.outputAssets, function() {
             cb(null);
           });
