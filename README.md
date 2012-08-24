@@ -203,6 +203,6 @@ where
 
 Thus, to generate the above, your Jade template might go:
 
-```jade
+```
 != headingTable(toh, 5, ['tocContainer', 'tocItem'])
 ```

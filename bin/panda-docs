@@ -16,86 +16,16 @@ var panda = require('../index.js'),
 var async = require('async');
 var helpers = require('../lib/helpers');
 
+var cli = require('../lib/cli');
+
 var panda_docs = exports;
 var manifestFile;
 
-panda_docs.make = exports.make = function(args, callback) {
-    var options = nomnom
-      .option('manifestPath', {
-        position: 0,
-        list: false,
-        required: true,
-        help: 'The location of the manifest file',
-        metavar: 'String'
-      })
-      .option('output', {
-        abbr: 'o',
-        list: false,
-        required: false,
-        help: 'Resulting file(s) location [out]',
-        metavar: 'String',
-        default: 'out'
-      })
-      .option('outputAssets', {
-        list: false,
-        required: false,
-        full: 'outputAssets',
-        help: 'Resulting file(s) location for assets [out/assets]',
-        metavar: 'String',
-        default: 'out/assets'
-      })
-      .option('help', {
-        abbr: 'h',
-        full: 'help',
-        help: 'Displays this help information',
-        default: false
-      })
-      .option('title', {
-        abbr: 't',
-        full: 'title',
-        help: 'Title of the index page [Panda: Default Title Here]',
-        metavar: 'String',
-        default: 'Panda: Default Title Here'
-      })
-      .option('template', {
-        full: 'template',
-        help: 'The location of your Jade templates',
-        metavar: 'String',
-        default: './templates/default/layout.jade'
-      })  
-      .option('assets', {
-        full: 'assets',
-        help: 'The location of your asset files (CSS, Javascript, e.t.c.)',
-        metavar: 'String',
-        default: './templates/default/assets'
-      })
-      .option('disableTests', {
-        abbr: 'd',
-        full: 'disableTests',
-        help: 'Disables the tests that are run at the end of a build. This is NOT recommended.',
-        flag: true
-      })
-      .option('noRelease', {
-        abbr: 'r',
-        full: 'no-release',
-        help: 'If set, indicates that you\'re not doing a release',
-        flag: true
-      })
-      .option('keepFirstHeader', {
-        full: 'keepFirstHeader',
-        help: 'If set, keeps the first header (<h1>) detected',
-        flag: true
-      })
-      .option('baseUrl', {
-        full: 'baseurl',
-        help: 'Base url of all links [./]',
-        metavar: 'String',
-        default: './'
-      })
-      .parse(args);
+
+panda_docs.make = exports.make = function(manifestFile, args, callback) {
+    var options = cli.parseArgs();
 
     destDir = options.output;
-    manifestFile = options.manifestPath || args[0];
 
     manifests = [];
 
@@ -105,6 +35,7 @@ panda_docs.make = exports.make = function(args, callback) {
     cbReturn = {};
     cbReturn.files = [ ];
 
+    console.log(options)
     async.series([
         function(cb) {
           if (manifestFile !== undefined && fs.statSync(manifestFile))  {
