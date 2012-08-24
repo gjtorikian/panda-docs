@@ -35,7 +35,6 @@ panda_docs.make = exports.make = function(manifestFile, args, callback) {
     cbReturn = {};
     cbReturn.files = [ ];
 
-    console.log(options)
     async.series([
         function(cb) {
           if (manifestFile !== undefined && fs.statSync(manifestFile))  {

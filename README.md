@@ -44,10 +44,14 @@ The _manifest.json_ file is mandatory, and all other options are optional. The d
 If you'd like to use `panda-docs` in a script, you can! Simply define one like this:
 
 ```javascript
-var panda = require("panda-docs");
+var options = {
+    title: "Panda (from script)"
+}
 
-panda.make(["./src/manifest.json", "-t", "Panda (from command line)"], function(err, cbReturn) {
-    if (err) console.error(err);
+panda.make("./src/manifest.json", options, function(err, cbReturn) {
+    if (err) {
+        console.error(err);
+    }
 });
 ```
 
@@ -77,15 +81,17 @@ Note that every file must have ONE `h1` tag. This is used to generate the page's
 
 There are a number of arguments you can pass to Panda that affect the entire build. They are:
 
- - `-h, --help`: Display the help information
- - `-o`, `--output`: Resulting file(s) location [out]
- - `--outputAssets`: Resulting file(s) location for assets [out/assets]
- - `-t, --title`: Title of the documentation [Panda: Default Title Here]
- - `--template`: The location of your Jade templates [_./templates/default/layout.jade_]. Though the path is optional, you must have a valid Jade template _somewhere_.
- - `--assets`: The location of your assets (CSS, Javascript)
- - `--keepFirstHeader` : If set, keeps the first header (`<h1>`) detected
- - `--baseurl`: Base URL of all links
-- `-r, --no-release`: If set, indicates that you're doing a development build. You can trigger different behavior in your Jade templates this way
+*  `-h`, --help`                      Show this help message and exit.
+*  `-v`, `--version`                  Show program's version number and exit.
+*  `-o PATH`, `--output PATH`         Resulting file(s) location [out]
+*  `-oa PATH`, `--outputAssets PATH`  Resulting file(s) location for assets [out/assets]
+*  `-t `STRING`, `--title STRING`     Title of the index page [Panda: Default Title Here]
+*  `--template PATH`                  The location of your primary Jade template [./templates/default/layout.jade]
+*  `--assets PATH`                    The location of your asset files (CSS, Javascript, e.t.c.) [./templates/default/assets]
+*  `-d`, `--disableTests`             Disables the test suite that runs at the end of an HTML build. This is NOT recommended.
+*  `-nr`, `--noRelease`               If set, indicates that you're not doing a release
+*  `--keepFirstHeader`                If set, keeps the first header (<h1>) detected
+*  `--baseUrl STRING `                Base url of all links [./]
 
 
 ## Jade Templates

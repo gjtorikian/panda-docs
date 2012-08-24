@@ -4,7 +4,7 @@ var options = {
 	title: "Panda (from script)"
 }
 
-panda.make("./src/manifest.json", options, function(err) {
+panda.make("./src/manifest.json", options, function(err, cbReturn) {
 	if (err) {
 		console.error(err);
 	}
