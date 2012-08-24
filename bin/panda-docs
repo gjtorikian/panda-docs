@@ -9,7 +9,6 @@ Copyright (C) 2012 Garen J. Torikian, licensed under GPL.
 var panda = require('../index.js'),
     fs = require('fs'),
     path = require('path'),
-    nomnom = require('nomnom'),
     wrench = require('wrench'),
     funcDocs = require('functional-docs');
 
