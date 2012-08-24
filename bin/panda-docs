@@ -34,7 +34,10 @@ panda_docs.make = exports.make = function(manifestFile, args, callback) {
 
     manifests = [];
 
-    wrench.rmdirSyncRecursive(destDir, true);
+    if (options.removeOutDir) {
+      wrench.rmdirSyncRecursive(destDir, true);
+    }
+    
     wrench.mkdirSyncRecursive(destDir, 0777);
 
     cbReturn = {};
@@ -64,7 +67,6 @@ panda_docs.make = exports.make = function(manifestFile, args, callback) {
           });
         },
         function(cb) {
-          console.log(options)
           panda.copyAssets(options.assets, options.outputAssets, function() {
             cb(null);
           });
