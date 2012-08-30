@@ -34,7 +34,7 @@ panda_docs.make = exports.make = function(manifestFile, args, callback) {
 
     manifests = [];
 
-    if (options.removeOutDir) {
+    if (!options.keepOutDir) {
       wrench.rmdirSyncRecursive(destDir, true);
     }
     
