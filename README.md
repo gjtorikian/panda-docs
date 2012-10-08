@@ -89,7 +89,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 *  `--skin PATH`                  The location of your primary Jade template [./templates/default/layout.jade]
 *  `--assets PATH`                    The location of your asset files (CSS, Javascript, e.t.c.) [./templates/default/assets]
 *  `-d`, `--disableTests`             Disables the test suite that runs at the end of an HTML build. This is NOT recommended.
-*  `--keepFirstHeader`                If set, keeps the first header (<h1>) detected
+*  `--keepFirstHeader`                If set, keeps the first header (`<h1>`) detected
 *  `--baseUrl STRING `                Base url of all links [./]
 *  `--keepOutDir`                     Does not wipe output directory before building (defaults to `false`)
 
