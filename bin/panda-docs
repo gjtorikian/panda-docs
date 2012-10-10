@@ -67,9 +67,13 @@ panda_docs.make = exports.make = function(manifestFile, args, callback) {
           });
         },
         function(cb) {
-          panda.copyAssets(options.assets, options.outputAssets, function() {
+          if (options.assets) {
+            panda.copyAssets(options.assets, options.outputAssets, function() {
+              cb(null);
+            });
+          }
+          else
             cb(null);
-          });
         },
         function(cb) {
           panda.copyResources(options.output, function() {
