@@ -1,11 +1,11 @@
 {
   "name":        "panda-docs",
-  "version":     "0.3.21",
+  "version":     "0.4.0",
   "author":      "Garen Torikian",
   "keywords":    ["documentation", "docs", "markdown"],
   "description": "A complete documentation generation tool for Markdown files",
   "licenses":     [{
-    "type":       "GPL",
+    "type":       "MIT",
     "url":        "http://github.com/gjtorikian/panda-docs/raw/master/LICENSE"
   }],
 
@@ -15,16 +15,17 @@
   },
 
   "dependencies": {
-    "namp": ">=0.1.8",
-    "async": ">=0.1.18",
-    "wrench": ">=1.3.8",
-    "jade": ">=0.26.1",
-    "argparse"    : ">=0.1.3",
-    "markdown_conrefs": ">=1.2.3",
-    "findit": ">=0.1.2",
-    "functional-docs": ">=0.1.10"
+    "namp": "",
+    "async": "",
+    "wrench": "",
+    "jade": "",
+    "argparse"    : "",
+    "markdown_conrefs": "",
+    "findit": "",
+    "functional-docs": "",
+    "minimatch"   : "",
+    "fs-tools"     : ""
   },
 
-  "bin": { "panda-docs": "bin/panda-docs" },
-  "main": "bin/panda-docs"
+  "main": "index.js"
 }

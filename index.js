@@ -1,73 +1,130 @@
 var fs = require('fs'),
     path = require('path');
 
-var Manifest = require('./lib/manifest'),
-    Generator = require('./lib/generator');
+var Generator = require('./lib/generator'),
+    helpers = require('./lib/helpers'),
+    cli = require('./lib/cli');
 
 var conrefs = require('markdown_conrefs'),
     jade = require('jade'),
-    async = require('async'),
-    wrench = require('wrench');
+    wrench = require('wrench'),
+    funcDocs = require('functional-docs'),
+    async = require('async');
 
-//exports.Manifest = Manifest;
-exports.Generator = Generator;
+var panda_docs = exports;
+var files;
 
-exports.open = function(filename, callback) {
-  Manifest.open(filename, callback);
-};
+panda_docs.make = exports.make = function(paths, _options, callback) {
+    var options = cli.parseArgs(paths);
 
-exports.makeConrefs = function(cb) {
-  conrefs.init(Manifest.options.files);
-  cb(null);
-};
+    for (var key in _options) {
+      if (_options.hasOwnProperty(key)) {
+        options[key] = _options[key];
+      }
+    }
 
-exports.createGenerator = function(options, callback) {
-  Generator.createGenerator(options, callback);
-};
+    destDir = options.output;
 
-exports.copyAssets = function(srcDir, destDir, callback) {
-  console.log("Copying assets to " + destDir + "...");
-  wrench.mkdirSyncRecursive(destDir, 0777);
-  wrench.copyDirSyncRecursive(srcDir, destDir, {preserve: true});
-  callback(null);
-};
+    if (!options.keepOutDir) {
+      wrench.rmdirSyncRecursive(destDir, true);
+    }
+    
+    wrench.mkdirSyncRecursive(destDir);
 
-exports.copyResources = function(destDir, callback) {
-  if (Manifest.options.resources !== undefined) {
-      console.log("Copying resources...");
-      var manifestDir = path.dirname(Manifest.uri);
-  
-      Manifest.options.resources.forEach(function (src) {
-        var item = path.resolve(manifestDir, src);
-        wrench.copyDirSyncRecursive(item, destDir + "/" + path.basename(item));
-      });
-      callback(null);
-  } else {
-    callback(null);
-  }
-};
+    cbReturn = {};
+    cbReturn.files = [ ];
 
-exports.render = function(cbReturn, callback) {
-  var jadeTemplateFile = Generator.options.template;
+    async.series([
+        function(cb) {
+          if (options.extension.charAt(0) !== ".")
+            options.extension = "." + options.extension;
+
+          cli.findFiles(options.paths, options.excludes, options.extension, function(err, _files) {
+            files = _files;
+            cb(err);
+          });
+        },
+
+        function(cb) {
+          conrefs.init(files);
+          cb(null);
+        },
+
+        function(cb) {
+          if (options.assets) {
+            var outAssetsDirName = options.outputAssets || path.join(options.output, path.basename(options.assets));
+
+            console.log("Copying assets to " + outAssetsDirName + "...");
+            wrench.mkdirSyncRecursive(outAssetsDirName);
+            wrench.copyDirSyncRecursive(options.assets, outAssetsDirName, {preserve: true});
+          }
+          if (options.resources) {
+            var outResourcesDirName = options.outputResources || path.join(options.output, path.basename(options.resources));
+
+            console.log("Copying resources to " + outResourcesDirName + "...");
+
+            wrench.mkdirSyncRecursive(outResourcesDirName);
+            wrench.copyDirSyncRecursive(options.resources, outResourcesDirName, {preserve: true});
+          }
+          cb(null);
+        },
+
+        function(cb) {
+          render(options, cbReturn, function(err) {
+            cb(err);
+          });
+        },
+
+        function(cb) {
+          var outputJson = cbReturn;
+
+          outputJson.baseUrl = options.baseUrl;
+          outputJson.title = options.title;
+
+          fs.writeFile(path.join(options.output, "docs.json"), JSON.stringify(outputJson, null, "    "), function(err) {
+            cb(err);
+          });
+        }
+    ], function(err, results) {
+      if (err) return callback(err);
+
+      if (options.disableTests !== true) {
+          funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html"}, function(err) {
+                if (err) return callback(err);
+
+              return callback(null, cbReturn);
+          });
+      }
+      else
+        return callback(null, cbReturn);
+    });
+}
+
+function render(options, cbReturn, callback) {
+  var jadeTemplateFile = options.skin;
   var jadeTemplate = fs.readFileSync(jadeTemplateFile, 'utf8');
-  var jadeCompileFn = jade.compile(jadeTemplate, {filename: jadeTemplateFile, pretty: false});
+  var jadeCompileFn = jade.compile(jadeTemplate, {filename: jadeTemplateFile, pretty: true});
   console.log("Building files...");
   
-  async.forEach(Manifest.options.files, function(filepath, addPageTitle) {
+  async.forEach(files, function(filepath, cb) {
       fs.stat(filepath, function (err, stats) {
           if (err) return callback(err); 
           var mtime = stats.mtime.valueOf();
-          var filename = path.basename(filepath, Manifest.options.extension);
+          var filename = path.basename(filepath, options.extension);
 
           fs.readFile(filepath, 'utf8', function(err, data) {
               if (err) return callback(err); 
 
-              cbReturn.files.push({});
-              cbReturn.files[cbReturn.files.length - 1].filename = filename;
-              cbReturn.files[cbReturn.files.length - 1].mtime = mtime;
-              cbReturn.files[cbReturn.files.length - 1].pageTitle = data.split("\n")[0].substring(2);
+              var fileObj = {};
+              fileObj.filename = filename;
+              fileObj.mtime = mtime;
+              fileObj.pageTitle = data.split("\n")[0].substring(2);
 
-              Generator.render(Manifest.options, jadeCompileFn, filepath, filename, data, mtime, addPageTitle);
+              Generator.render(options, jadeCompileFn, filepath, filename, data, mtime, function(err, html) {
+                fileObj.contents = html;
+                cbReturn.files.push(fileObj);
+                cb(null);
+              });
           });
       });  
   }, function(err, results) {

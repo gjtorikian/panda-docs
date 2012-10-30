@@ -6,9 +6,6 @@ What's black and white and read all over?
 
 This is a documentation build system that takes Markdown files as sources, and produces HTML files. It runs on [Node.js](http://nodejs.org/), and uses [Jade](http://jade-lang.com/) as its templating engine.
 
-A lot of the concepts are based on [maximebf's "beautiful-docs"](https://github.com/maximebf/beautiful-docs), but there are so many differences--the most notable being that this is in Javascript, not Coffeescript--that I decided to turn it into a complete fork.
-
-
 ## Features
 
  - Markdown syntax using [NAMP](https://github.com/gjtorikian/namp). NAMP supports:
@@ -18,10 +15,11 @@ A lot of the concepts are based on [maximebf's "beautiful-docs"](https://github.
 	* Conversion of `Note: `, `Tip: `, and `Warning: ` blocks into [Twitter Bootstrap alert blocks](http://twitter.github.com/bootstrap/components.html#alerts)
 	For more information, check out the NAMP documentation.
  - Support for [content references (conrefs) in Markdown](https://github.com/gjtorikian/markdown_conrefs)
- - Pass in individual files or entire directories
+ - Pass in individual files or entire directories; exclude files and directories with glob matching
  - Embeddable metadata
- - Easy template customization (via Jade)
- - Automatic linking for all heading tags (`h1`, `h2`, _e.t.c._)
+ - Easy template customization
+ - Automatic linking for all heading tags (`h1`, `h2`, _e.t.c._), as well as automatic table of headers generation
+ - Provides a JSON format
 
 ## Installation
 
@@ -31,24 +29,20 @@ Make sure you have a recent build of Node.js (this was tested on v0.6.0). Instal
 
 Want to try a demonstration? Then clone this repository, and run
 
-	node bin/panda-docs src/manifest.json 
+	node build.js
 
 That'll turn this README into a better looking HTML file in the _/out_ directory.
 
 ## Usage
 
-    panda-docs </path/to/manifest.json> _[options]_ 
-
-The _manifest.json_ file is mandatory, and all other options are optional. The default output directory here is _./out_.
-
-If you'd like to use `panda-docs` in a script, you can! Simply define one like this:
+Use `panda-docs` in a script! Simply define a file similar to this one:
 
 ```javascript
 var options = {
     title: "Panda (from script)"
 }
 
-panda.make("./src/manifest.json", options, function(err, cbReturn) {
+panda.make(["./src/"], options, function(err, cbReturn) {
     if (err) {
         console.error(err);
     }
@@ -57,27 +51,7 @@ panda.make("./src/manifest.json", options, function(err, cbReturn) {
 
 You can find out more information on options you can use below:
 
-### Manifest Files
-
-A manifest file is a mandatory JSON file that indicates where your source files reside, as well as specifing customization options for your documentation pages.
- 
-A manifest file can have the properties listed below. All the properties are optional, with the exception of `files`.
-
- - `files`: An array defining the path to your files
- - `resources`: An array of directories to also copy into the _/out_ directory. This is usually used for accompanying or inline images.
- - `extension`: The extension of your Markdown files. Some people use `.md`, others `.markdown`, and still others `.text`. This is optional, and defaults to `.md`.
- - `home`: The file to display as the manual homepage (this won't show up in the TOC)
- - `codeHighlightTheme`: The name of [the highlightjs theme to use](http://softwaremaniacs.org/soft/highlight/en/) for code highlighting (defaults to 'github')
-
-As noted above, files can either be absolute URIs, or relative to the manifest file. For example: 
-
-    {
-        "files": ["README.md", "../../someFile.md"]
-    }
-
-Note that every file must have ONE `h1` tag. This is used to generate the page's title information.
-
-### Options
+### Available Options
 
 There are a number of arguments you can pass to Panda that affect the entire build. They are:
 
@@ -103,21 +77,12 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `manifest` is an object containing the Manifest.json properties
 * `toh` is an object containing the headings for each file (`h1`, `h2`, _e.t.c._). See below for more information on this object.
 * `headingTable` is a function you can use to generate a list of your page's table of contents. See below for more information on using this
-* `options` is an object containing your passed in properties
 * `fileName` is the name of the resulting file (without the extension)
 * `title` is the title of the documentation
 * `pageTitle` is the title of the current page
 * `mtime` indicates the last modified time of your source file
 
-## Callback Results
-
-The callback for `panda` returns a JSON with one key: `files`, which is a listing of all the files generated. `files` is an array of objects, containing the following keys:
-
-* `filename`: the filename (minus the suffix)
-* `mtime`: the last modified time of your source file
-* `pageTitle`: the title of the page (text only, meaning minus any `#` or `<h1>` indicators)
-
-You could use this information to provide a list of Recently Updated content--which is exactly what the [Cloud9 IDE User Documentation](https://github.com/c9/cloud9ide-documentation) does.
+All your passed in `options` are also available.
 
 #### Working with a Table of Contents for a Page
 
@@ -212,3 +177,13 @@ Thus, to generate the above, your Jade template might go:
 ```
 != headingTable(toh, 5, ['tocContainer', 'tocItem'])
 ```
+
+## Callback Results
+
+The callback for `panda` returns a JSON with one key: `files`, which is a listing of all the files generated. `files` is an array of objects, containing the following keys:
+
+* `filename`: the filename (minus the suffix)
+* `mtime`: the last modified time of your source file
+* `pageTitle`: the title of the page (text only, meaning minus any `#` or `<h1>` indicators)
+
+You could use this information to provide a list of Recently Updated content--which is exactly what the [Cloud9 IDE User Documentation](https://github.com/c9/cloud9ide-documentation) does.
