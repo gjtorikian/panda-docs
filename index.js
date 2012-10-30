@@ -9,7 +9,8 @@ var conrefs = require('markdown_conrefs'),
     jade = require('jade'),
     wrench = require('wrench'),
     funcDocs = require('functional-docs'),
-    async = require('async');
+    async = require('async'),
+    cheerio = require('cheerio');
 
 var panda_docs = exports;
 var files;
@@ -76,14 +77,18 @@ panda_docs.make = exports.make = function(paths, _options, callback) {
         },
 
         function(cb) {
-          var outputJson = cbReturn;
+          if (options.json) {
+            var outputJson = cbReturn;
 
-          outputJson.baseUrl = options.baseUrl;
-          outputJson.title = options.title;
+            outputJson.baseUrl = options.baseUrl;
+            outputJson.title = options.title;
 
-          fs.writeFile(path.join(options.output, "docs.json"), JSON.stringify(outputJson, null, "    "), function(err) {
-            cb(err);
-          });
+            fs.writeFile(path.join(options.output, slugify(options.title) + ".json"), JSON.stringify(outputJson, null, "    "), function(err) {
+              cb(err);
+            });
+          }
+          else
+            cb(null);
         }
     ], function(err, results) {
       if (err) return callback(err);
@@ -115,13 +120,25 @@ function render(options, cbReturn, callback) {
           fs.readFile(filepath, 'utf8', function(err, data) {
               if (err) return callback(err); 
 
-              var fileObj = {};
-              fileObj.filename = filename;
-              fileObj.mtime = mtime;
-              fileObj.pageTitle = data.split("\n")[0].substring(2);
-
               Generator.render(options, jadeCompileFn, filepath, filename, data, mtime, function(err, html) {
-                fileObj.contents = html;
+                var fileObj = {};
+                fileObj.filename = filename;
+                fileObj.mtime = mtime;
+                fileObj.pageTitle = data.split("\n")[0].substring(2);
+
+                if (options.contentId) {
+                  var $ = cheerio.load(html);
+                  fileObj.contents = $("#" + options.contentId).html();
+                }
+                else {
+                  fileObj.contents = html;
+                }
+
+                if (cbReturn.toc === undefined && options.tocId) {
+                  var $ = cheerio.load(html);
+                  cbReturn.toc = $("#" + options.tocId).html();
+                }
+
                 cbReturn.files.push(fileObj);
                 cb(null);
               });
@@ -131,3 +148,12 @@ function render(options, cbReturn, callback) {
       callback(err);
   });
 };
+
+function slugify(str) {
+  str = str.toLowerCase();
+  str = str.replace(/^\s+|\s+$/g, "");
+  str = str.replace(/[\/_|\s]+/g, "-");
+  str = str.replace(/[^a-z0-9-]+/g, "");
+  str = str.replace(/[-]+/g, "-");
+  return str = str.replace(/^-+|-+$/g, "");
+}
