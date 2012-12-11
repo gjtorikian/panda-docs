@@ -8,12 +8,7 @@ This is a documentation build system that takes Markdown files as sources, and p
 
 ## Features
 
- - Markdown syntax using [NAMP](https://github.com/gjtorikian/namp). NAMP supports:
- 	* [The standard Gruber syntax](http://daringfireball.net/projects/markdown/)
-	* [The GitHub Flavored Markdown syntax](http://github.github.com/github-flavored-markdown/) (including language-specific codeblock fences)
-	* Strikethroughs
-	* Conversion of `Note: `, `Tip: `, and `Warning: ` blocks into [Twitter Bootstrap alert blocks](http://twitter.github.com/bootstrap/components.html#alerts)
-	For more information, check out the NAMP documentation.
+ - Markdown syntax using [NAMP](https://github.com/gjtorikian/namp).
  - Support for [content references (conrefs) in Markdown](https://github.com/gjtorikian/markdown_conrefs)
  - Pass in individual files or entire directories; exclude files and directories with glob matching
  - Embeddable metadata
@@ -66,7 +61,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 *  `--keepFirstHeader`                If set, keeps the first header (`<h1>`) detected
 *  `--baseUrl STRING `                Base url of all links [./]
 *  `--keepOutDir`                     Does not wipe output directory before building (defaults to `false`)
-
+*  `--safeWords`                      An array of words not to complain about when performing a spellcheck test
 
 ## Jade Templates
 
@@ -81,6 +76,7 @@ You have to specify at least one Jade file as a template for your pages. Within 
 * `title` is the title of the documentation
 * `pageTitle` is the title of the current page
 * `mtime` indicates the last modified time of your source file
+* `markdown` references the Markdown converter; since this is based on namp, you'll want to add `.html` at the end to get the actual HTML
 
 All your passed in `options` are also available.
 
