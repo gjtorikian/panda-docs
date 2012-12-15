@@ -1,6 +1,6 @@
 {
   "name":        "panda-docs",
-  "version":     "0.4.3",
+  "version":     "0.4.4",
   "author":      "Garen Torikian",
   "keywords":    ["documentation", "docs", "markdown"],
   "description": "A complete documentation generation tool for Markdown files",
@@ -22,11 +22,12 @@
 
     "namp": "",
     "markdown_conrefs": "",
-    "functional-docs": "",
+    "functional-docs" : "",
 
     "argparse"    : "",
     "minimatch"   : "",
-    "fs-tools"     : ""
+    "fs-tools"    : "",
+    "underscore"  : ""
   },
 
   "main": "index.js"
