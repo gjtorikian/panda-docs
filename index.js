@@ -94,7 +94,7 @@ panda_docs.make = exports.make = function(paths, _options, callback) {
       if (err) return callback(err);
 
       if (options.disableTests !== true) {
-          funcDocs.runTests([destDir], {stopOnFail: false, ext: ".html", safeWords: options.safeWords}, function(err) {
+          funcDocs.runTests([destDir], _.extend({stopOnFail: false, ext: ".html", safeWords: options.safeWords}), function(err) {
                 if (err) return callback(err);
 
               return callback(null, cbReturn);
