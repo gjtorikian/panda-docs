@@ -10,7 +10,8 @@ var conrefs = require('markdown_conrefs'),
     wrench = require('wrench'),
     funcDocs = require('functional-docs'),
     async = require('async'),
-    cheerio = require('cheerio');
+    cheerio = require('cheerio'),
+    _ = require("underscore");
 
 var panda_docs = exports;
 var files;
