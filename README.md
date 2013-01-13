@@ -55,7 +55,7 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 *  `-o PATH`, `--output PATH`         Resulting file(s) location [out]
 *  `-oa PATH`, `--outputAssets PATH`  Resulting file(s) location for assets [out/assets]
 *  `-t `STRING`, `--title STRING`     Title of the index page [Panda: Default Title Here]
-*  `--skin PATH`                  The location of your primary Jade template [./templates/default/layout.jade]
+*  `--skin PATH`                      The location of your Jade templates [./templates/default]
 *  `--assets PATH`                    The location of your asset files (CSS, Javascript, e.t.c.) [./templates/default/assets]
 *  `-d`, `--disableTests`             Disables the test suite that runs at the end of an HTML build. This is NOT recommended.
 *  `--keepFirstHeader`                If set, keeps the first header (`<h1>`) detected
@@ -65,7 +65,12 @@ There are a number of arguments you can pass to Panda that affect the entire bui
 
 ## Jade Templates
 
-You have to specify at least one Jade file as a template for your pages. Within your Jade template, you have access to the following variables:
+You need at least one Jade template `layout.jade`. Optional you can
+have a template per file, for example if you have the file `index.md`
+you can add `index.jade` to your template folder and it will be used
+only for this file.
+
+Within your Jade template, you have access to the following variables:
 
 * `content` is the transformed HTML content of your Markdown file
 * `metadata` is an object containing your document-based metadata values
