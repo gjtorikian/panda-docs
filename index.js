@@ -30,7 +30,7 @@ panda_docs.make = exports.make = function(paths, _options, callback) {
     if (!options.keepOutDir) {
       wrench.rmdirSyncRecursive(destDir, true);
     }
-    
+
     wrench.mkdirSyncRecursive(destDir);
 
     cbReturn = {};
@@ -107,19 +107,27 @@ panda_docs.make = exports.make = function(paths, _options, callback) {
 }
 
 function render(options, cbReturn, callback) {
-  var jadeTemplateFile = options.skin;
-  var jadeTemplate = fs.readFileSync(jadeTemplateFile, 'utf8');
-  var jadeCompileFn = jade.compile(jadeTemplate, {filename: jadeTemplateFile, pretty: true});
+  var defaultTemplateFile = path.join(options.skin, 'layout.jade');
+  var defaultTemplate = fs.readFileSync(defaultTemplateFile, 'utf8');
+  var defaultCompileFn = jade.compile(defaultTemplate, {filename: defaultTemplateFile, pretty: true});
   console.log("Building files...");
-  
+
   async.forEach(files, function(filepath, cb) {
       fs.stat(filepath, function (err, stats) {
-          if (err) return callback(err); 
+          if (err) return callback(err);
           var mtime = stats.mtime.valueOf();
           var filename = path.basename(filepath, options.extension);
 
+          var jadeTemplateFile = path.join(options.skin, filename + '.jade');
+          if (fs.existsSync(jadeTemplateFile)) {
+            var jadeTemplate = fs.readFileSync(jadeTemplateFile, 'utf8');
+            var jadeCompileFn = jade.compile(jadeTemplate, {filename: jadeTemplateFile, pretty: true});
+          } else {
+            var jadeCompileFn = defaultCompileFn;
+          }
+
           fs.readFile(filepath, 'utf8', function(err, data) {
-              if (err) return callback(err); 
+              if (err) return callback(err);
 
               Generator.render(options, jadeCompileFn, filepath, filename, data, mtime, function(err, html) {
                 var fileObj = {};
@@ -144,7 +152,7 @@ function render(options, cbReturn, callback) {
                 cb(null);
               });
           });
-      });  
+      });
   }, function(err, results) {
       callback(err);
   });
