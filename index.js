@@ -107,7 +107,7 @@ panda_docs.make = exports.make = function(paths, _options, callback) {
 }
 
 function render(options, cbReturn, callback) {
-  var defaultTemplateFile = path.join(options.skin, 'layout.jade');
+  var defaultTemplateFile = path.join(options.skin);
   var defaultTemplate = fs.readFileSync(defaultTemplateFile, 'utf8');
   var defaultCompileFn = jade.compile(defaultTemplate, {filename: defaultTemplateFile, pretty: true});
   console.log("Building files...");
